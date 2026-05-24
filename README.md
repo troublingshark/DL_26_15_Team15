@@ -75,10 +75,10 @@ YOLOv8 Segmentation 모델을 활용해 웨이퍼 이미지에서 결함을 자�
 
 ## 디렉토리 구조
 
+```
 wafer_defect_service/
 ├── app.py              # 메인 Streamlit 앱
 ├── models/
 │   └── best.pt         # 학습된 YOLOv8 모델
 └── outputs/            # 결과 이미지 저장 폴더 (자동 생성)
-
 ```
