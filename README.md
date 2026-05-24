@@ -44,15 +44,20 @@ YOLOv8 Segmentation 모델을 활용해 웨이퍼 이미지에서 결함을 자�
 
 ## 실행 방법
 
-```bash
-# 가상환경 활성화 (Windows)
-.venv\Scripts\activate
+본 서비스는 Streamlit Cloud에 배포되어 있으며, 아래 링크를 통해 웹 브라우저에서 바로 실행할 수 있습니다.
 
-# 앱 실행
-streamlit run app.py
-```
+[Wafer Defect Analysis Service 실행하기](https://dl2615team15-le8d7fwgy6yxdtxfgh2csd.streamlit.app/)
 
-브라우저에서 `http://localhost:8501` 로 접속하면 서비스를 이용할 수 있습니다.
+별도의 Python 코드 실행이나 개발 환경 설정은 필요하지 않으며, 접속 후 웨이퍼 이미지를 업로드하면 결함 검출 및 통계 분석 결과를 확인할 수 있습니다.
+
+---
+
+### 사용 절차
+
+1. Confidence Threshold 값을 설정합니다.
+2. 웨이퍼 이미지를 업로드합니다.
+3. 결함 검출 결과와 class별 통계 그래프를 확인합니다.
+4. CSV, ZIP, TXT 보고서를 다운로드합니다.
 
 ---
 
@@ -70,10 +75,10 @@ streamlit run app.py
 
 ## 디렉토리 구조
 
-```
 wafer_defect_service/
 ├── app.py              # 메인 Streamlit 앱
 ├── models/
 │   └── best.pt         # 학습된 YOLOv8 모델
 └── outputs/            # 결과 이미지 저장 폴더 (자동 생성)
+
 ```
