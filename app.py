@@ -20,9 +20,10 @@ from ultralytics import YOLO
 # ============================================================
 # 0. 기본 설정값
 # ============================================================
-MODEL_PATH = Path("models/best.pt")
-OUTPUT_DIR = Path("outputs")
-OUTPUT_DIR.mkdir(exist_ok=True) # outputs 폴더 자동생성 코드
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "models" / "best.pt"
+OUTPUT_DIR = BASE_DIR / "outputs"
+OUTPUT_DIR.mkdir(exist_ok=True)
 
 DEFAULT_CONFIDENCE = 0.25 # confidence_threshold: 기본 0.25로 설정
 UPLOAD_IMAGE_TYPES = ["jpg", "jpeg", "png", "bmp", "tif", "tiff"] # 업로드
