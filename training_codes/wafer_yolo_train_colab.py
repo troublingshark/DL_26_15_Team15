@@ -158,29 +158,6 @@ print("=" * 50)
 
 #-------------------------------------------------------------------
 
-# 데이터셋 분포 불균형 해결후 yolov8m-seg모델 img=640로 80 epoch 재학습시키기
-from ultralytics import YOLO
-import time
-DATA_YAML = "dataset/data.yaml"
-model = YOLO("yolov8m-seg.pt")
-start_time = time.time()
-model.train(
-    data=DATA_YAML,
-    epochs=80,
-    imgsz=640,
-    batch=8,
-    device=0,
-    name="yolov8m_aug_img640_e80",
-    patience=15
-)
-end_time = time.time()
-print("=" * 50)
-print("학습 완료")
-print(f"총 학습 시간: {(end_time - start_time) / 60:.2f}분")
-print("=" * 50)
-
-#-------------------------------------------------------------------
-
 # 데이터셋 분포 불균형 해결후 yolov8m-seg모델 img=1024로 80 epoch 재학습시키기
 from ultralytics import YOLO
 import time
@@ -195,6 +172,16 @@ model.train(
     device=0,
     name="yolov8m_aug_img1024_e80",
     patience=15
+
+    # YOLO 학습 중 augmentation 옵션
+    mosaic=1.0,
+    mixup=0.1,
+    copy_paste=0.2,
+    hsv_h=0.015,
+    hsv_s=0.7,
+    hsv_v=0.4,
+    scale=0.5,
+    translate=0.1
 )
 end_time = time.time()
 print("=" * 50)
@@ -203,3 +190,40 @@ print(f"총 학습 시간: {(end_time - start_time) / 60:.2f}분")
 print("=" * 50)
 
 #-------------------------------------------------------------------
+
+# 데이터셋 분포 불균형 해결후 yolov8m-seg모델 img=640로 80 epoch 재학습시키기
+from ultralytics import YOLO
+import time
+DATA_YAML = "dataset/data.yaml"
+model = YOLO("yolov8m-seg.pt")
+start_time = time.time()
+
+# SCRATCH undersampling + 소수 클래스 oversampling 데이터셋으로 학습
+# YOLO built-in augmentation 함께 적용
+model.train(
+    data=DATA_YAML,
+    epochs=80,
+    imgsz=640,
+    batch=8,
+    device=0,
+    name="yolov8m_balanced_over_under_aug_e80",
+    patience=15,
+
+    # YOLO 학습 중 augmentation 옵션
+    mosaic=1.0,
+    mixup=0.1,
+    copy_paste=0.2,
+    hsv_h=0.015,
+    hsv_s=0.7,
+    hsv_v=0.4,
+    scale=0.5,
+    translate=0.1
+)
+end_time = time.time()
+print("=" * 50)
+print("학습 완료")
+print(f"총 학습 시간: {(end_time - start_time) / 60:.2f}분")
+print("=" * 50)
+
+#-------------------------------------------------------------------
+
